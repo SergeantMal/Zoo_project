@@ -1,0 +1,8 @@
+Mammal,кошка,3,белый
+Bird,попугай,2,цветной
+Reptile,змея,1,серебристый
+Mammal,собака,5,черный
+Bird,воробей,3,коричневый
+ZooKeeper,Иван,45
+Veterinarian,Петр,30
+CleaningWorker,Тамара,50
