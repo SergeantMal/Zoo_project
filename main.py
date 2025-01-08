@@ -1,46 +1,58 @@
-from __future__ import annotations
+# Программа, реализующая зоопарк. В зоопарке работают сотрудники, которые ухаживают за животными.
+# Реализовано с использованием классов, полиморфизма и композиции.
+
+
+# Класс Животные
 
 class Animal:
     def __init__(self, name: str, age: int):
         self.name = name
         self.age = age
 
-    def eat(self):
+    def eat(self):  # Метод еды
         print(f"{self.name} ест")
 
-    def sleep(self):
+    def sleep(self):  # Метод сна
         print(f"{self.name} спит")
 
-    def make_noise(self):
+    def make_noise(self):  # Метод шума
         print(f"{self.name} издает шум")
 
+
+# Дочерний класс Млекопитающие
 
 class Mammal(Animal):
     def __init__(self, name: str, age: int, fur_color: str):
         super().__init__(name, age)
         self.fur_color = fur_color
 
-    def make_noise(self):
+    def make_noise(self):  # Метод шума
         print(f"{self.name} урчит")
 
+
+# Дочерний класс Птицы
 
 class Bird(Animal):
     def __init__(self, name: str, age: int, feather_color: str):
         super().__init__(name, age)
         self.feather_color = feather_color
 
-    def make_noise(self):
+    def make_noise(self):  # Метод шума
         print(f"{self.name} чирикает")
 
+
+# Дочерний класс Рептилии
 
 class Reptile(Animal):
     def __init__(self, name: str, age: int, scales_color: str):
         super().__init__(name, age)
         self.scales_color = scales_color
 
-    def make_noise(self):
+    def make_noise(self):  # Метод шума
         print(f"{self.name} шипит")
 
+
+# Класс Сотрудники
 
 class Personal:
     def __init__(self, name: str, age: int):
@@ -48,35 +60,43 @@ class Personal:
         self.age = age
 
 
+# Дочерний класс Смотритель
+
 class ZooKeeper(Personal):
-    def feed_animal(self, animal: Animal):
+    def feed_animal(self, animal: Animal):  # Метод кормления
         print(f"{self.name} кормит {animal.name}")
         animal.eat()
 
 
+# Дочерний класс Ветеринар
+
 class Veterinarian(Personal):
-    def heal_animal(self, animal: Animal):
+    def heal_animal(self, animal: Animal):  # Метод лечения
         print(f"{self.name} лечит {animal.name}")
         animal.sleep()
 
 
+# Дочерний класс Уборщик
+
 class CleaningWorker(Personal):
-    def clean_cage(self, animal: Animal):
+    def clean_cage(self, animal: Animal):  # Метод уборки
         print(f"{self.name} чистит клетку {animal.name}")
 
+
+# Класс Зоопарк
 
 class Zoo:
     def __init__(self):
         self.animals = []
         self.staff = []
 
-    def add_animal(self, animal: Animal):
+    def add_animal(self, animal: Animal):  # Метод добавления животного
         self.animals.append(animal)
 
-    def add_staff(self, staff_member: Personal):
+    def add_staff(self, staff_member: Personal):  # Метод добавления сотрудника
         self.staff.append(staff_member)
 
-    def list_animals(self):
+    def list_animals(self):  # Метод вывода списка животных
         for animal in self.animals:
             if isinstance(animal, Mammal):
                 print(f"{animal.name}, {animal.age} лет, цвет шерсти: {animal.fur_color}")
@@ -85,11 +105,11 @@ class Zoo:
             elif isinstance(animal, Reptile):
                 print(f"{animal.name}, {animal.age} лет, цвет чешуи: {animal.scales_color}")
 
-    def list_staff(self):
+    def list_staff(self):  # Метод вывода списка сотрудников
         for staff_member in self.staff:
             print(f"{staff_member.name}, {staff_member.age} лет, {staff_member.__class__.__name__}")
 
-    def save_zoo(self):
+    def save_zoo(self):  # Метод сохранения состояния зоопарка
         with open("zoo_state.txt", "w", encoding="utf-8") as file:
             for animal in self.animals:
                 if isinstance(animal, Mammal):
@@ -101,7 +121,7 @@ class Zoo:
             for staff_member in self.staff:
                 file.write(f"{staff_member.__class__.__name__},{staff_member.name},{staff_member.age}\n")
 
-    def load_zoo(self):
+    def load_zoo(self):  # Метод загрузки состояния зоопарка
         try:
             with open("zoo_state.txt", "r") as file:
                 for line in file:
@@ -119,6 +139,8 @@ class Zoo:
             print("Файл с состоянием зоопарка не найден!")
 
 
+
+# Функция основного меню
 def main():
     zoo = Zoo()
 
@@ -198,6 +220,7 @@ def main():
         else:
             print("Неверный выбор, попробуйте снова.")
 
+# Запуск основного меню
 
 if __name__ == "__main__":
     main()
