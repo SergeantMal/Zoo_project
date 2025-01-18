@@ -123,7 +123,7 @@ class Zoo:
 
     def load_zoo(self):  # Метод загрузки состояния зоопарка
         try:
-            with open("zoo_state.txt", "r") as file:
+            with open("zoo_state.txt", "r", encoding="utf-8") as file:
                 for line in file:
                     data = line.strip().split(",")
                     if data[0] == "Mammal":
@@ -135,6 +135,8 @@ class Zoo:
                     elif data[0] in {"ZooKeeper", "Veterinarian", "CleaningWorker"}:
                         staff_class = globals()[data[0]]
                         self.add_staff(staff_class(data[1], int(data[2])))
+
+            print("Состояние зоопарка успешно загружено!")
         except FileNotFoundError:
             print("Файл с состоянием зоопарка не найден!")
 
